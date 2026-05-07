@@ -22,4 +22,5 @@ static String apple='assets/image/onboarding/Apple.png';
 static  String menuIcon = 'assets/images/home/menu_icon.png';
 static  String searchIcon = 'assets/images/home/search_icon.png';
 static  String homeDetails = 'assets/images/home/home_details.png';
+static  String  homeDetailsCup = 'assets/images/home/Vector.svg';
 }

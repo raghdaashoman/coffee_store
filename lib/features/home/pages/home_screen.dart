@@ -56,10 +56,9 @@ class HomeScreen extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverGrid(
-              delegate: SliverChildBuilderDelegate(childCount: allData.length, (
-                context,
-                index,
-              ) {
+              delegate: SliverChildBuilderDelegate(
+                  childCount: allData.length, (context,
+                  index,) {
                 return InkWell(
                   onTap: () {
                     Navigator.pushReplacementNamed(
@@ -116,7 +115,8 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             SizedBox(width: 5,),
-                            Icon(Icons.account_balance,color: AppColor.primary,)
+                            Icon(
+                              Icons.account_balance, color: AppColor.primary,)
                           ],
                         ),
                       ],
