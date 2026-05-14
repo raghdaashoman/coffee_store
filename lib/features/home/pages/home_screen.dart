@@ -2,14 +2,16 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drinkable/core/constent/app_image.dart';
 import 'package:drinkable/core/constent/app_strings.dart';
 import 'package:drinkable/features/home/data/data.dart';
+import 'package:drinkable/features/home/widget/main_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../core/constent/app_color.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
+  List<String> names = ['coffee', 'Tea', 'juice', 'cake',];
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -23,18 +25,22 @@ class HomeScreen extends StatelessWidget {
             labelColor: AppColor.secondary,
             indicatorColor: AppColor.secondary,
             dividerColor: AppColor.secondary,
-            tabs: [
-              Tab(child: Text('coffee')),
-              Tab(child: Text('Tea')),
-              Tab(child: Text('juice')),
-              Tab(child: Text('cake')),
-            ],
+            tabs: names.map((e) => Tab(child: Text(e))).toList(),
           ),
           backgroundColor: AppColor.background,
-          leading: Image.asset(AppImage.menuIcon, width: 24.w, height: 24.h),
+          leading: IconButton(
+            onPressed: () {
+              if (context.locale == Locale('ar')) {
+                context.setLocale(Locale('en'));
+              } else {
+                context.setLocale(Locale('ar'));
+              }
+            },
+            icon: Icon(Icons.change_circle),
+          ),
           centerTitle: true,
           title: Text(
-            AppStrings.drinkable,
+            'hello'.tr(),
             style: TextStyle(
               color: AppColor.primary,
               fontSize: 20.sp,
@@ -56,10 +62,11 @@ class HomeScreen extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverGrid(
-              delegate: SliverChildBuilderDelegate(
-                  childCount: allData.length, (context,
-                  index,) {
-                return InkWell(
+              delegate: SliverChildBuilderDelegate(childCount: allData.length, (
+                context,
+                index,
+              ) {
+                return MainCard(
                   onTap: () {
                     Navigator.pushReplacementNamed(
                       context,
@@ -67,61 +74,9 @@ class HomeScreen extends StatelessWidget {
                       arguments: allData[index],
                     );
                   },
-                  child: Container(
-                    margin: EdgeInsets.only(left: 10, top: 10, right: 10),
-                    decoration: BoxDecoration(
-                      color: AppColor.containerBackground,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: CachedNetworkImage(
-                            width: 220.w,
-                            height: 190.h,
-                            fit: BoxFit.cover,
-                            imageUrl: '${allData[index]['image']}',
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(
-                                  color: AppColor.tabBarColor,
-                                ),
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                          ),
-                        ),
-                        Text(
-                          textAlign: TextAlign.center,
-                          '${allData[index]['name']}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColor.primary,
-                            fontSize: 17.sp,
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
-                        SizedBox(height: 25.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(""),
-                            Text(
-                              '${allData[index]['price']}\$',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.sp,
-                                fontFamily: 'Poppins',
-                                color: AppColor.primary,
-                              ),
-                            ),
-                            SizedBox(width: 5,),
-                            Icon(
-                              Icons.account_balance, color: AppColor.primary,)
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
+                  imageUrl: allData[index]['image'],
+                  title: allData[index]['name'],
+                  price: allData[index]['price'],
                 );
               }),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

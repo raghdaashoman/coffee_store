@@ -26,8 +26,8 @@ class _HomedetailsPageState extends State<HomedetailsPage> {
           Container(height: 1.sh, width: 1.sw),
           CachedNetworkImage(
             imageUrl: product['image'],
-            width: 1.sw,
-            height: 1.sh,
+            width: 375.w,
+            height: 481.h,
             fit: BoxFit.cover,
             placeholder: (context, url) =>
                 CircularProgressIndicator(color: AppColor.primary),
@@ -96,47 +96,53 @@ class _HomedetailsPageState extends State<HomedetailsPage> {
                     style: TextStyle(color: AppColor.primary, fontSize: 14.sp),
                   ),
                   SizedBox(height: 8.h),
-                  Row(
-                    children: [250, 350, 450].map((value) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 4.w,
-                          vertical: 10.h,
-                        ),
-                        child: ChoiceChip(
-                          side: BorderSide(
-                            color: selectedValue == value
-                                ? AppColor.iconColor
-                                : Colors.grey,
+                  StatefulBuilder(
+                    builder: (context, setState) {
+
+                    return
+                      Row(
+                      children: [250, 350, 450].map((value) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 4.w,
+                            vertical: 10.h,
                           ),
-                          backgroundColor: AppColor.containerBackground,
-                          color: WidgetStatePropertyAll(Color(0xff3C2C26)),
-                          selectedColor: AppColor.containerBackground,
-                          selected: (selectedValue == value),
-                          onSelected: (isSelected) {
-                            setState(() {
-                              selectedValue = value;
-                            });
-                          },
-                          showCheckmark: false,
-                          label: Container(
-                            width: 65.w,
-                            height: 30.h,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SvgPicture.asset(AppImage.homeDetailsCup),
-                                SizedBox(width: 5.w),
-                                Text(
-                                  "$value",
-                                  style: TextStyle(color: AppColor.primary),
-                                ),
-                              ],
+                          child: ChoiceChip(
+                            side: BorderSide(
+                              color: selectedValue == value
+                                  ? AppColor.iconColor
+                                  : Colors.grey,
+                            ),
+                            backgroundColor: AppColor.containerBackground,
+                            color: WidgetStatePropertyAll(Color(0xff3C2C26)),
+                            selectedColor: AppColor.containerBackground,
+                            selected: (selectedValue == value),
+                            onSelected: (isSelected) {
+                              setState(() {
+                                selectedValue = value;
+                              });
+                            },
+                            showCheckmark: false,
+                            label: Container(
+                              width: 65.w,
+                              height: 30.h,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SvgPicture.asset(AppImage.homeDetailsCup),
+                                  SizedBox(width: 5.w),
+                                  Text(
+                                    "$value",
+                                    style: TextStyle(color: AppColor.primary),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      );
-                    }).toList(),
+                        );
+                      }).toList(),
+                    );
+                    }
                   ),
                   SizedBox(height: 8.h),
                   Row(

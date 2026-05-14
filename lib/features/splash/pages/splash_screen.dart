@@ -33,7 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
              child:
          Column(
            children: [
-             Text(AppStrings.drinkable,style: TextStyle(
+             Text(AppStrings.drinkable,
+               style: TextStyle(
                fontFamily: 'Poppins',
                  fontSize:32.sp,
                fontWeight: FontWeight.bold,
